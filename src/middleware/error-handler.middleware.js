@@ -24,7 +24,7 @@ const errorHandler = (err, req, res, next) => {
     },
   };
 
-  if (err.details && env.nodeEnv !== 'production') {
+  if (err.details && (env.nodeEnv !== 'production' || statusCode < 500)) {
     response.error.details = err.details;
   }
 
