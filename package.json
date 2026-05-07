@@ -6,7 +6,8 @@
   "scripts": {
     "dev": "node src/server.js",
     "start": "node src/server.js",
-    "db:migrate:manual": "echo Apply migrations/001_create_api_keys.sql to your PostgreSQL database",
+    "db:migrate:manual": "echo Apply SQL files from migrations/ to your PostgreSQL database in order",
+    "api-key:hash": "node scripts/hash-api-key.js",
     "test": "echo \"No tests configured yet\" && exit 0"
   },
   "keywords": [],

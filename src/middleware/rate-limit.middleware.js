@@ -11,6 +11,10 @@ const apiRateLimiter = rateLimit({
   standardHeaders: 'draft-8',
   legacyHeaders: false,
   keyGenerator: (req) => {
+    if (req.apiClient?.source === 'database') {
+      return `db:${req.apiClient.id}`;
+    }
+
     const apiKey = req.get('x-api-key');
 
     if (apiKey) {

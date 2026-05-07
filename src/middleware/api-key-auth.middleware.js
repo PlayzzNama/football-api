@@ -1,20 +1,9 @@
-const crypto = require('crypto');
 const env = require('../config/env');
+const apiKeyService = require('../services/api-key.service');
 const ApiError = require('../utils/api-error');
 
-const safeCompare = (left, right) => {
-  const leftBuffer = Buffer.from(left);
-  const rightBuffer = Buffer.from(right);
-
-  if (leftBuffer.length !== rightBuffer.length) {
-    return false;
-  }
-
-  return crypto.timingSafeEqual(leftBuffer, rightBuffer);
-};
-
-const apiKeyAuth = (req, res, next) => {
-  if (env.apiKeys.length === 0) {
+const apiKeyAuth = async (req, res, next) => {
+  if (!env.databaseUrl && env.apiKeys.length === 0) {
     next(
       new ApiError(
         500,
@@ -32,15 +21,14 @@ const apiKeyAuth = (req, res, next) => {
     return;
   }
 
-  const isValidApiKey = env.apiKeys.some((validApiKey) =>
-    safeCompare(apiKey, validApiKey),
-  );
+  const apiClient = await apiKeyService.validateApiKey(apiKey);
 
-  if (!isValidApiKey) {
+  if (!apiClient) {
     next(new ApiError(403, 'Invalid API key'));
     return;
   }
 
+  req.apiClient = apiClient;
   next();
 };
 
