@@ -24,7 +24,7 @@ const errorHandler = (err, req, res, next) => {
     },
   };
 
-  if (err.details) {
+  if (err.details && env.nodeEnv !== 'production') {
     response.error.details = err.details;
   }
 
