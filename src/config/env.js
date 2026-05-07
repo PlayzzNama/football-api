@@ -56,6 +56,16 @@ const env = {
   corsOrigin: parseCorsOrigin(process.env.CORS_ORIGIN),
   jsonBodyLimit: process.env.JSON_BODY_LIMIT || '100kb',
   apiKeys: parseApiKeys(process.env.API_KEYS),
+  rateLimitWindowMs: parsePositiveInteger(
+    process.env.RATE_LIMIT_WINDOW_MS,
+    60000,
+    'RATE_LIMIT_WINDOW_MS',
+  ),
+  rateLimitMaxRequests: parsePositiveInteger(
+    process.env.RATE_LIMIT_MAX_REQUESTS,
+    60,
+    'RATE_LIMIT_MAX_REQUESTS',
+  ),
   footballDataApiKey: process.env.FOOTBALL_DATA_API_KEY || '',
   footballDataBaseUrl:
     process.env.FOOTBALL_DATA_BASE_URL || 'https://api.football-data.org/v4',
