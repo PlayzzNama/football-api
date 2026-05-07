@@ -1,10 +1,6 @@
-const dotenv = require('dotenv');
 const app = require('./app');
+const env = require('./config/env');
 
-dotenv.config();
-
-const port = process.env.PORT || 3000;
-
-app.listen(port, () => {
-  console.log(`Football API is running on port ${port}`);
+app.listen(env.port, () => {
+  console.log(`Football API is running on port ${env.port}`);
 });
