@@ -8,7 +8,6 @@ Production-oriented football REST API for monetization. Data provider: football-
 - `GET /competitions`
 - `GET /matches`
 - `GET /live`
-- `GET /standings`
 - `GET /docs`
 - `GET /openapi.json`
 
