@@ -12,4 +12,10 @@ router.get(
   asyncHandler(matchController.getMatches),
 );
 
+router.get(
+  '/live',
+  validateRequest(matchValidation.getLiveMatchesSchema),
+  asyncHandler(matchController.getLiveMatches),
+);
+
 module.exports = router;

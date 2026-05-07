@@ -13,6 +13,20 @@ const getMatches = async (req, res) => {
   });
 };
 
+const getLiveMatches = async (req, res) => {
+  const data = await matchService.getLiveMatches(req.validated.query);
+
+  res.status(200).json({
+    success: true,
+    data: {
+      filters: data.filters,
+      resultSet: data.resultSet,
+      matches: data.matches,
+    },
+  });
+};
+
 module.exports = {
+  getLiveMatches,
   getMatches,
 };

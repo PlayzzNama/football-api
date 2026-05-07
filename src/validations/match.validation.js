@@ -55,6 +55,13 @@ const getMatchesSchema = {
     }),
 };
 
+const getLiveMatchesSchema = {
+  query: z.object({
+    competitions: commaSeparatedCompetitionRefs.optional(),
+  }),
+};
+
 module.exports = {
+  getLiveMatchesSchema,
   getMatchesSchema,
 };
