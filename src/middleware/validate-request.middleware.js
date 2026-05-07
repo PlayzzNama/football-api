@@ -9,16 +9,18 @@ const formatZodErrors = (error) =>
 
 const validateRequest = (schema) => (req, res, next) => {
   try {
+    req.validated = {};
+
     if (schema.params) {
-      req.params = schema.params.parse(req.params);
+      req.validated.params = schema.params.parse(req.params);
     }
 
     if (schema.query) {
-      req.query = schema.query.parse(req.query);
+      req.validated.query = schema.query.parse(req.query);
     }
 
     if (schema.body) {
-      req.body = schema.body.parse(req.body);
+      req.validated.body = schema.body.parse(req.body);
     }
 
     next();
