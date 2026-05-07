@@ -1,93 +1,232 @@
-# Football API
+# ⚽ Fast Football API
 
-Production-oriented football REST API for monetization. Data provider: football-data.org v4.
+Production-ready Football REST API with live matches, competitions, standings, caching, API key authentication, Swagger documentation, and rate limiting.
 
-## Endpoints
+## 🚀 Live Demo
 
-- `GET /health`
-- `GET /competitions`
-- `GET /matches`
-- `GET /live`
-- `GET /docs`
-- `GET /openapi.json`
+### API Base URL
 
-Protected endpoints require:
-
-```http
-x-api-key: your-api-key
+```bash
+https://football-api-4knh.onrender.com
 ```
 
-## Local Setup
+### Swagger Documentation
 
-```powershell
+```bash
+https://football-api-4knh.onrender.com/docs
+```
+
+---
+
+# ✨ Features
+
+* ⚽ Football matches endpoint
+* 🔴 Live matches
+* 🏆 Competitions data
+* 📊 Standings support
+* 🔐 API key authentication
+* 🚦 Rate limiting
+* ⚡ Fast caching
+* 📄 Swagger/OpenAPI docs
+* ☁️ Production deployment
+* 🛡 Security middleware
+* 📦 Docker support
+
+---
+
+# 🛠 Tech Stack
+
+* Node.js
+* Express.js
+* Axios
+* Swagger/OpenAPI
+* Redis
+* PostgreSQL
+* Docker
+* Render Deployment
+
+---
+
+# 📦 Installation
+
+## 1. Clone repository
+
+```bash
+git clone https://github.com/PlayzzNama/football-api.git
+cd football-api
+```
+
+---
+
+## 2. Install dependencies
+
+```bash
 npm install
-Copy-Item .env.example .env
+```
+
+---
+
+## 3. Create `.env`
+
+```env
+PORT=3000
+NODE_ENV=development
+
+API_KEYS=your_api_key_here
+
+FOOTBALL_DATA_API_KEY=your_football_data_api_key
+
+FOOTBALL_DATA_BASE_URL=https://api.football-data.org/v4
+FOOTBALL_DATA_TIMEOUT_MS=10000
+
+CACHE_TTL_SECONDS=60
+```
+
+---
+
+## 4. Run development server
+
+```bash
 npm run dev
 ```
 
-Set real values in `.env`:
+---
 
-```env
-API_KEYS=dev-api-key
-FOOTBALL_DATA_API_KEY=your_football_data_key
-DATABASE_URL=postgresql://football:football@localhost:5432/football_api
-REDIS_URL=redis://localhost:6379
-```
+# 📚 API Documentation
 
-## Database
+Swagger docs:
 
-Run PostgreSQL, then apply migrations:
-
-```powershell
-npm run db:migrate
-```
-
-Generate a hash for a customer API key:
-
-```powershell
-npm run api-key:hash -- customer-secret-key
-```
-
-Insert the hash into `api_keys.key_hash`.
-
-## Docker
-
-```powershell
-docker compose up --build
-```
-
-Then open:
-
-```text
-http://localhost:3000/health
+```bash
 http://localhost:3000/docs
 ```
 
-## Railway
+Production docs:
 
-1. Create a Railway project.
-2. Add PostgreSQL and Redis services.
-3. Add app environment variables from `.env.example`.
-4. Set `FOOTBALL_DATA_API_KEY`.
-5. Deploy from GitHub or Railway CLI.
-6. Run migrations once:
-
-```powershell
-npm run db:migrate
+```bash
+https://football-api-4knh.onrender.com/docs
 ```
 
-## Monetization
+---
 
-Suggested plans:
+# 🔑 Authentication
 
-- Free: 10,000 monthly requests, 60 requests/minute.
-- Pro: 250,000 monthly requests, 600 requests/minute.
-- Business: 1,000,000 monthly requests, 3,000 requests/minute.
+All endpoints require API key.
 
-Store customer keys in PostgreSQL using hashed keys only.
+Example:
 
-## Verification
+```bash
+curl -H "x-api-key: YOUR_API_KEY" \
+https://football-api-4knh.onrender.com/matches
+```
 
-```powershell
+---
+
+# 📌 Endpoints
+
+## Health Check
+
+```http
+GET /health
+```
+
+---
+
+## Competitions
+
+```http
+GET /competitions
+```
+
+---
+
+## Matches
+
+```http
+GET /matches
+```
+
+---
+
+## Live Matches
+
+```http
+GET /live
+```
+
+---
+
+# ⚡ Rate Limits
+
+Default limits:
+
+* 60 requests/minute
+
+---
+
+# 🐳 Docker
+
+Build image:
+
+```bash
+docker build -t football-api .
+```
+
+Run container:
+
+```bash
+docker run -p 3000:3000 football-api
+```
+
+---
+
+# ☁️ Deployment
+
+Currently deployed on Render.
+
+---
+
+# 🔐 Security
+
+* Helmet
+* CORS
+* API Key Authentication
+* Rate Limiting
+* Environment Variables
+
+---
+
+# 🧪 Testing
+
+```bash
 npm test
 ```
+
+---
+
+# 📈 Roadmap
+
+* Team endpoint
+* Player statistics
+* Match predictions
+* Betting odds
+* WebSocket live updates
+* Premium plans
+* Analytics dashboard
+
+---
+
+# 📄 License
+
+MIT License
+
+---
+
+# 🤝 Contributing
+
+Pull requests are welcome.
+
+---
+
+# ⭐ Support
+
+If you like the project, give it a star on GitHub.
