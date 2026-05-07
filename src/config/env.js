@@ -16,6 +16,20 @@ const parsePort = (value) => {
   return port;
 };
 
+const parsePositiveInteger = (value, fallback, name) => {
+  if (value === undefined || value === '') {
+    return fallback;
+  }
+
+  const parsedValue = Number(value);
+
+  if (!Number.isInteger(parsedValue) || parsedValue <= 0) {
+    throw new Error(`${name} must be a positive number`);
+  }
+
+  return parsedValue;
+};
+
 const parseCorsOrigin = (value) => {
   if (!value || value === '*') {
     return '*';
@@ -31,6 +45,13 @@ const env = {
   corsOrigin: parseCorsOrigin(process.env.CORS_ORIGIN),
   jsonBodyLimit: process.env.JSON_BODY_LIMIT || '100kb',
   footballDataApiKey: process.env.FOOTBALL_DATA_API_KEY || '',
+  footballDataBaseUrl:
+    process.env.FOOTBALL_DATA_BASE_URL || 'https://api.football-data.org/v4',
+  footballDataTimeoutMs: parsePositiveInteger(
+    process.env.FOOTBALL_DATA_TIMEOUT_MS,
+    10000,
+    'FOOTBALL_DATA_TIMEOUT_MS',
+  ),
   databaseUrl: process.env.DATABASE_URL || '',
   redisUrl: process.env.REDIS_URL || '',
 };
