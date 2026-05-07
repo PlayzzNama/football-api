@@ -21,7 +21,6 @@ x-api-key: customer-key
 - `GET /competitions`
 - `GET /matches`
 - `GET /live`
-- `GET /standings`
 
 ## Recommended Pricing
 
@@ -34,7 +33,6 @@ x-api-key: customer-key
 ```text
 GET /matches?competitions=PL,CL&status=SCHEDULED
 GET /live?competitions=PL
-GET /standings?competition=PL
 ```
 
 ## Before Publishing

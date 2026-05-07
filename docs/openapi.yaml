@@ -4,6 +4,8 @@ info:
   version: 1.0.0
   description: Monetizable football REST API powered by football-data.org.
 servers:
+  - url: https://football-api-4knh.onrender.com
+    description: Production
   - url: http://localhost:3000
     description: Local
 security:
@@ -93,31 +95,4 @@ paths:
       responses:
         "200":
           description: Live matches response.
-  /standings:
-    get:
-      summary: Get competition standings
-      parameters:
-        - in: query
-          name: competition
-          required: true
-          schema:
-            type: string
-          example: PL
-        - in: query
-          name: season
-          schema:
-            type: string
-          example: "2026"
-        - in: query
-          name: matchday
-          schema:
-            type: integer
-          example: 3
-        - in: query
-          name: date
-          schema:
-            type: string
-            format: date
-      responses:
-        "200":
-          description: Standings response.
+  
