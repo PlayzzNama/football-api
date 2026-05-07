@@ -1,7 +1,21 @@
 const env = require('../config/env');
+const logger = require('../utils/logger');
 
 const errorHandler = (err, req, res, next) => {
   const statusCode = err.statusCode || 500;
+
+  const logLevel = statusCode >= 500 ? 'error' : 'warn';
+
+  logger[logLevel](
+    {
+      err,
+      requestId: req.id,
+      method: req.method,
+      url: req.originalUrl,
+      statusCode,
+    },
+    err.message,
+  );
 
   const response = {
     success: false,

@@ -1,6 +1,7 @@
 const app = require('./app');
 const env = require('./config/env');
+const logger = require('./utils/logger');
 
 app.listen(env.port, () => {
-  console.log(`Football API is running on port ${env.port}`);
+  logger.info({ port: env.port }, 'Football API is running');
 });
