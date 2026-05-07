@@ -1,4 +1,4 @@
-const rateLimit = require('express-rate-limit');
+const { ipKeyGenerator, rateLimit } = require('express-rate-limit');
 const crypto = require('crypto');
 const env = require('../config/env');
 
@@ -21,7 +21,7 @@ const apiRateLimiter = rateLimit({
       return hashValue(apiKey);
     }
 
-    return req.ip;
+    return ipKeyGenerator(req.ip);
   },
   message: {
     success: false,

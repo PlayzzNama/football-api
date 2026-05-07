@@ -6,9 +6,10 @@
   "scripts": {
     "dev": "node src/server.js",
     "start": "node src/server.js",
+    "db:migrate": "node scripts/run-migrations.js",
     "db:migrate:manual": "echo Apply SQL files from migrations/ to your PostgreSQL database in order",
     "api-key:hash": "node scripts/hash-api-key.js",
-    "test": "echo \"No tests configured yet\" && exit 0"
+    "test": "node test/api.test.js"
   },
   "keywords": [],
   "author": "",
@@ -25,9 +26,12 @@
     "pino": "^10.3.1",
     "pino-http": "^11.0.0",
     "redis": "^5.12.1",
+    "swagger-ui-express": "^5.0.1",
+    "yaml": "^2.8.4",
     "zod": "^4.4.3"
   },
   "devDependencies": {
-    "pino-pretty": "^13.1.3"
+    "pino-pretty": "^13.1.3",
+    "supertest": "^7.2.2"
   }
 }

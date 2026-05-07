@@ -1,0 +1,123 @@
+openapi: 3.1.0
+info:
+  title: Football API
+  version: 1.0.0
+  description: Monetizable football REST API powered by football-data.org.
+servers:
+  - url: http://localhost:3000
+    description: Local
+security:
+  - ApiKeyAuth: []
+components:
+  securitySchemes:
+    ApiKeyAuth:
+      type: apiKey
+      in: header
+      name: x-api-key
+  schemas:
+    ErrorResponse:
+      type: object
+      properties:
+        success:
+          type: boolean
+          example: false
+        error:
+          type: object
+          properties:
+            message:
+              type: string
+            details:
+              type: array
+              items:
+                type: object
+paths:
+  /health:
+    get:
+      security: []
+      summary: Health check
+      responses:
+        "200":
+          description: API health status.
+  /competitions:
+    get:
+      summary: List competitions
+      parameters:
+        - in: query
+          name: areas
+          schema:
+            type: string
+          example: "2077"
+      responses:
+        "200":
+          description: Competitions response.
+        "401":
+          description: Missing API key.
+        "403":
+          description: Invalid API key.
+  /matches:
+    get:
+      summary: List matches
+      parameters:
+        - in: query
+          name: dateFrom
+          schema:
+            type: string
+            format: date
+        - in: query
+          name: dateTo
+          schema:
+            type: string
+            format: date
+        - in: query
+          name: status
+          schema:
+            type: string
+          example: SCHEDULED
+        - in: query
+          name: competitions
+          schema:
+            type: string
+          example: PL,CL
+      responses:
+        "200":
+          description: Matches response.
+  /live:
+    get:
+      summary: List live matches
+      parameters:
+        - in: query
+          name: competitions
+          schema:
+            type: string
+          example: PL,CL
+      responses:
+        "200":
+          description: Live matches response.
+  /standings:
+    get:
+      summary: Get competition standings
+      parameters:
+        - in: query
+          name: competition
+          required: true
+          schema:
+            type: string
+          example: PL
+        - in: query
+          name: season
+          schema:
+            type: string
+          example: "2026"
+        - in: query
+          name: matchday
+          schema:
+            type: integer
+          example: 3
+        - in: query
+          name: date
+          schema:
+            type: string
+            format: date
+      responses:
+        "200":
+          description: Standings response.
