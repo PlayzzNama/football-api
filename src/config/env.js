@@ -74,6 +74,11 @@ const env = {
     10000,
     'FOOTBALL_DATA_TIMEOUT_MS',
   ),
+  cacheTtlSeconds: parsePositiveInteger(
+    process.env.CACHE_TTL_SECONDS,
+    60,
+    'CACHE_TTL_SECONDS',
+  ),
   databaseUrl: process.env.DATABASE_URL || '',
   redisUrl: process.env.REDIS_URL || '',
 };

@@ -1,5 +1,6 @@
 const axios = require('axios');
 const env = require('../config/env');
+const cacheService = require('./cache.service');
 const ApiError = require('../utils/api-error');
 const logger = require('../utils/logger');
 
@@ -48,8 +49,36 @@ const mapFootballDataError = (error) => {
   return new ApiError(500, 'Football data request failed');
 };
 
+const createCacheKey = (path, params) => {
+  const searchParams = new URLSearchParams();
+
+  Object.keys(params)
+    .sort()
+    .forEach((key) => {
+      const value = params[key];
+
+      if (value !== undefined && value !== null && value !== '') {
+        searchParams.append(key, String(value));
+      }
+    });
+
+  const queryString = searchParams.toString();
+
+  return queryString
+    ? `football-data:${path}?${queryString}`
+    : `football-data:${path}`;
+};
+
 const getFromFootballData = async (path, params = {}) => {
   assertFootballDataConfig();
+
+  const cacheKey = createCacheKey(path, params);
+  const cachedData = await cacheService.get(cacheKey);
+
+  if (cachedData) {
+    logger.info({ cacheKey }, 'Football data cache hit');
+    return cachedData;
+  }
 
   try {
     const response = await footballDataClient.get(path, {
@@ -58,6 +87,8 @@ const getFromFootballData = async (path, params = {}) => {
         'X-Auth-Token': env.footballDataApiKey,
       },
     });
+
+    await cacheService.set(cacheKey, response.data, env.cacheTtlSeconds);
 
     return response.data;
   } catch (error) {
